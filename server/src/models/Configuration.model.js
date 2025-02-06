@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 
-const Configuration = sequelize.define(
+export const Configuration = sequelize.define(
   'configuration',
   {
     id: {
@@ -37,5 +37,3 @@ const Configuration = sequelize.define(
     tableName: 'configuration',
   }
 );
-
-export default Configuration;

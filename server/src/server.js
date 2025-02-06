@@ -1,5 +1,6 @@
 import express from 'express';
 import { sequelize } from './config/db.js';
+import { configurationRouter } from './routes/Configuration.routes.js';
 
 const serve = async () => {
   try {
@@ -14,6 +15,8 @@ const serve = async () => {
     app.get('/', (req, res) => {
       res.send('Hello, Express with PostgreSQL!');
     });
+
+    app.use('/configurations', configurationRouter);
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

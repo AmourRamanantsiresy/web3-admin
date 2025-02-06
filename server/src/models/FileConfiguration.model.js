@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/db.js';
 import Configuration from './Configuration.model.js';
 
-const FileConfiguration = sequelize.define(
+export const FileConfiguration = sequelize.define(
   'file_configuration',
   {
     id: {
@@ -37,5 +37,3 @@ const FileConfiguration = sequelize.define(
 
 Configuration.hasMany(FileConfiguration, { foreignKey: 'configuration_id' });
 FileConfiguration.belongsTo(Configuration, { foreignKey: 'configuration_id' });
-
-export default FileConfiguration;
