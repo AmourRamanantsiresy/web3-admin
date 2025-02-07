@@ -1,6 +1,7 @@
 import express from 'express';
 import { Op } from 'sequelize';
 import { Configuration } from '../models/Configuration.model.js';
+import { validateConfiguration } from '../validators/Configuration.validator.js';
 
 export const configurationRouter = express.Router();
 
@@ -34,7 +35,7 @@ configurationRouter.get('/:id', async (req, res) => {
   }
 });
 
-configurationRouter.put('/:id', async (req, res) => {
+configurationRouter.put('/:id', validateConfiguration, async (req, res) => {
   try {
     const config = await Configuration.create(req.body);
     res.status(201).json(config);
