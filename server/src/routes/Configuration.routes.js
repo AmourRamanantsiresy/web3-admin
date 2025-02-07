@@ -33,3 +33,12 @@ configurationRouter.get('/:id', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+configurationRouter.put('/:id', async (req, res) => {
+  try {
+    const config = await Configuration.create(req.body);
+    res.status(201).json(config);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});

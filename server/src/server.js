@@ -1,5 +1,7 @@
 import express from 'express';
-import { sequelize } from './config/db.js';
+import { sequelize } from './configs/db.js';
+import { BadRequestError } from './errors/BadRequest.error.js';
+import { errorHandler } from './middlewares/ErrorHandler.middleware.js';
 import { configurationRouter } from './routes/Configuration.routes.js';
 
 const serve = async () => {
@@ -16,11 +18,17 @@ const serve = async () => {
       res.send('Hello, Express with PostgreSQL!');
     });
 
+    app.get('/test/error', (req, res, next) => {
+      BadRequestError('There is an error', next);
+    });
+
     app.use('/configurations', configurationRouter);
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
+
+    app.use(errorHandler);
   } catch (err) {
     console.log(err);
   }
