@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../config/db.js';
-import Configuration from './Configuration.model.js';
+import { Configuration } from './Configuration.model.js';
+import { sequelize } from '../configs/db.js';
 
 export const FileConfiguration = sequelize.define(
   'file_configuration',
