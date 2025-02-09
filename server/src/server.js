@@ -1,9 +1,10 @@
+import cors from 'cors';
 import express from 'express';
 import { sequelize } from './configs/db.js';
-import { BadRequestError } from './errors/BadRequest.error.js';
 import { errorHandler } from './middlewares/ErrorHandler.middleware.js';
 import { configurationRouter } from './routes/Configuration.routes.js';
 import { filesRouter } from './routes/Files.routes.js';
+import { userRouter } from './routes/User.routes.js';
 
 const serve = async () => {
   try {
@@ -14,15 +15,9 @@ const serve = async () => {
 
     const app = express();
     app.use(express.json());
+    app.use(cors());
 
-    app.get('/', (req, res) => {
-      res.send('Hello, Express with PostgreSQL!');
-    });
-
-    app.get('/test/error', (req, res, next) => {
-      BadRequestError('There is an error', next);
-    });
-
+    app.use('/users', userRouter);
     app.use('/configurations', configurationRouter);
     app.use('/files', filesRouter);
 
