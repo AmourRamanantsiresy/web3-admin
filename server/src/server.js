@@ -3,6 +3,7 @@ import { sequelize } from './configs/db.js';
 import { BadRequestError } from './errors/BadRequest.error.js';
 import { errorHandler } from './middlewares/ErrorHandler.middleware.js';
 import { configurationRouter } from './routes/Configuration.routes.js';
+import { filesRouter } from './routes/Files.routes.js';
 
 const serve = async () => {
   try {
@@ -23,6 +24,7 @@ const serve = async () => {
     });
 
     app.use('/configurations', configurationRouter);
+    app.use('/files', filesRouter);
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

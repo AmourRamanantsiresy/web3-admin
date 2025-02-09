@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../configs/db.js';
+import { Files } from './Files.model.js';
 
 export const Configuration = sequelize.define(
   'configuration',
@@ -16,8 +17,13 @@ export const Configuration = sequelize.define(
     description: {
       type: DataTypes.TEXT,
     },
-    image_url: {
-      type: DataTypes.TEXT,
+    image_id: {
+      type: DataTypes.UUID,
+      references: {
+        model: Files,
+        key: 'id',
+      },
+      allowNull: true,
     },
     configuration_type: {
       type: DataTypes.STRING,
@@ -37,3 +43,6 @@ export const Configuration = sequelize.define(
     tableName: 'configuration',
   }
 );
+
+Files.hasOne(Configuration, { foreignKey: 'image_id' });
+Configuration.belongsTo(Files, { foreignKey: 'image_id' });

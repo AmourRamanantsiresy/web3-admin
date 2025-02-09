@@ -7,7 +7,7 @@ const schema = z.object({
   id: validators.pass(),
   title: z.string({ message: 'Title is required' }).min(4, { message: 'Title length should contains at least 4 characters' }),
   description: validators.string('description'),
-  image_url: validators.pass(),
+  image_id: validators.pass(),
   configuration_type: validators.enum('configuration type', ['desktop', 'grub', 'vim', 'widget']),
 });
 
