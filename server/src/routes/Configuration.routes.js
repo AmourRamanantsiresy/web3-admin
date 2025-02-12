@@ -9,12 +9,12 @@ import { validateFileConfiguration } from '../validators/FileConfiguration.valid
 export const configurationRouter = express.Router();
 
 configurationRouter.get('/', ConfigurationController.getAll);
-configurationRouter.get('/:id', ConfigurationController.getOne);
-configurationRouter.put('/:id', validateConfiguration, ConfigurationController.saveOne);
+configurationRouter.get('/:configurationId', ConfigurationController.getOne);
+configurationRouter.put('/:configurationId', validateConfiguration, ConfigurationController.saveOne);
 // files
-configurationRouter.put('/:id/files/:fileId', fileUpload, FilesController.saveOne);
+configurationRouter.put('/:configurationId/files/:fileId', fileUpload, FilesController.saveOne);
 
 // file configuration
-configurationRouter.get('/:id/fileConfiguration', FileConfigurationController.getAll);
-configurationRouter.get('/:id/fileConfiguration/:fileConfigurationId', FileConfigurationController.getOneById);
-configurationRouter.put('/:id/fileConfiguration/:fileConfigurationId', validateFileConfiguration, FileConfigurationController.saveOne);
+configurationRouter.get('/:configurationId/fileConfiguration', FileConfigurationController.getAll);
+configurationRouter.get('/:configurationId/fileConfiguration/:fileConfigurationId', FileConfigurationController.getOneById);
+configurationRouter.put('/:configurationId/fileConfiguration/:fileConfigurationId', validateFileConfiguration, FileConfigurationController.saveOne);

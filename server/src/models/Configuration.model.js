@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../configs/db.js';
 import { Files } from './Files.model.js';
+import { User } from './User.model.js';
 
 export const Configuration = sequelize.define(
   'configuration',
@@ -9,6 +10,14 @@ export const Configuration = sequelize.define(
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
+    },
+    user_id: {
+      type: DataTypes.UUID,
+      references: {
+        model: User,
+        key: 'id',
+      },
+      allowNull: false,
     },
     title: {
       type: DataTypes.STRING,
@@ -46,3 +55,6 @@ export const Configuration = sequelize.define(
 
 Files.hasOne(Configuration, { foreignKey: 'image_id' });
 Configuration.belongsTo(Files, { foreignKey: 'image_id' });
+
+User.hasMany(Configuration, { foreignKey: 'user_configuration_id' });
+Configuration.belongsTo(User, { foreignKey: 'user_configuration_id' });

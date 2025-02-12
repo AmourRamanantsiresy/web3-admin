@@ -8,15 +8,15 @@ export class ConfigurationController {
   }
 
   static async getOne(req, res) {
-    const { id } = req.params;
-    const data = await ConfigurationServices.getOne(id);
+    const { configurationId } = req.params;
+    const data = await ConfigurationServices.getOne(configurationId);
     res.status(200).json(data);
   }
 
   static async saveOne(req, res) {
-    const { id } = req.params;
+    const { configurationId } = req.params;
     const { validatedData } = req;
-    const data = await ConfigurationServices.saveOne(id, validatedData);
+    const data = await ConfigurationServices.saveOne(configurationId, validatedData);
     res.status(200).json(data);
   }
 }

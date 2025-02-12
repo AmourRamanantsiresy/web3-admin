@@ -19,12 +19,8 @@ const serve = async () => {
     app.use(cors());
 
     app.use('/users', userRouter);
-    app.use('/configurations', configurationRouter);
+    app.use('/users/:userId/configurations', configurationRouter);
     app.use('/files', filesRouter);
-
-    app.get('/users/:id/test', verifyToken, (req, res) => {
-      res.json({ a: 'this' });
-    });
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
