@@ -52,6 +52,7 @@ Install dependencies using peer deps
      - I18N
 
 5. React admin notion (How it works ?)
+   ![Features](./src/assets/concept.png)
 
    - Admin
    - Ressource
