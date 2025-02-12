@@ -5,5 +5,5 @@ import { validateUserCredential } from '../validators/UserCredential.validator.j
 
 export const userRouter = express.Router();
 
-userRouter.post('/:id/signUp', validateUser, UserController.signUp);
+userRouter.post('/signUp', validateUser, UserController.signUp);
 userRouter.post('/signIn', validateUserCredential, UserController.signIn);

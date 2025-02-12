@@ -6,7 +6,8 @@ export class UserServices {
   static async singUp(userId, user) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(user.password, salt);
-    const createdUser = await User.create({ ...user, id: userId, password: hashedPassword });
+    const parsedUser = { ...user, id: userId, password: hashedPassword };
+    const createdUser = await User.create(parsedUser);
     createdUser.password = undefined;
     return createdUser;
   }

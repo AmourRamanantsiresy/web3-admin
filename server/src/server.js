@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import { sequelize } from './configs/db.js';
+import { verifyToken } from './middlewares/Authentication.middleware.js';
 import { errorHandler } from './middlewares/ErrorHandler.middleware.js';
 import { configurationRouter } from './routes/Configuration.routes.js';
 import { filesRouter } from './routes/Files.routes.js';
@@ -20,6 +21,10 @@ const serve = async () => {
     app.use('/users', userRouter);
     app.use('/configurations', configurationRouter);
     app.use('/files', filesRouter);
+
+    app.get('users/:id/test', verifyToken, (req, res) => {
+      res.json({ a: 'this' });
+    });
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
