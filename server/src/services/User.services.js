@@ -13,11 +13,18 @@ export class UserServices {
   }
 
   static async signIn(email, password) {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ where: { email } });
+
     if (!user) throw new Error(`User with email=${email} not fount`, { status: 404 });
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) throw new Error(`Bad password`, { status: 400 });
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '10h' });
-    return token;
+    const token = jwt.sign({ id: user.id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: '10h' });
+    user.password = undefined;
+    return { token, user };
+  }
+
+  static async getOneById(userId) {
+    const user = await User.findByPk(userId);
+    return user;
   }
 }

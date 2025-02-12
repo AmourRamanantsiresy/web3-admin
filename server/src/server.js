@@ -22,7 +22,7 @@ const serve = async () => {
     app.use('/configurations', configurationRouter);
     app.use('/files', filesRouter);
 
-    app.get('users/:id/test', verifyToken, (req, res) => {
+    app.get('/users/:id/test', verifyToken, (req, res) => {
       res.json({ a: 'this' });
     });
 

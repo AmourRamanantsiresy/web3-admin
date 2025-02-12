@@ -7,9 +7,8 @@ export class UserController {
   static async signIn(req, res, _next) {
     try {
       const { email, password } = req.validatedData;
-
-      const token = await UserServices.signIn(email, password);
-      req.json({ token });
+      const data = await UserServices.signIn(email, password);
+      res.json(data);
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
