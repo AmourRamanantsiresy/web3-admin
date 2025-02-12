@@ -14,9 +14,9 @@ export class ConfigurationController {
   }
 
   static async saveOne(req, res) {
-    const { configurationId } = req.params;
+    const { configurationId, userId } = req.params;
     const { validatedData } = req;
-    const data = await ConfigurationServices.saveOne(configurationId, validatedData);
+    const data = await ConfigurationServices.saveOne(configurationId, userId, validatedData);
     res.status(200).json(data);
   }
 }

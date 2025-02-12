@@ -14,11 +14,11 @@ export class ConfigurationServices {
     return await Configuration.findByPk(id);
   }
 
-  static async saveOne(id, configuration) {
-    let configurationForProvidedId = await Configuration.findByPk(id);
+  static async saveOne(configurationId, userId, configuration) {
+    let configurationForProvidedId = await Configuration.findByPk(configurationId);
 
     if (!configurationForProvidedId) {
-      return await Configuration.create({ ...configuration, id });
+      return await Configuration.create({ ...configuration, id: configurationId, user_id: userId });
     }
 
     Object.keys(configuration).forEach(key => (configurationForProvidedId[key] = configuration[key]));
