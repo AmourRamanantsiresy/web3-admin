@@ -56,5 +56,5 @@ export const Configuration = sequelize.define(
 Files.hasOne(Configuration, { foreignKey: 'image_id' });
 Configuration.belongsTo(Files, { foreignKey: 'image_id' });
 
-User.hasMany(Configuration, { foreignKey: 'user_configuration_id' });
-Configuration.belongsTo(User, { foreignKey: 'user_configuration_id' });
+User.hasMany(Configuration, { foreignKey: 'user_id' });
+Configuration.belongsTo(User, { foreignKey: 'user_id' });

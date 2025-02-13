@@ -19,7 +19,7 @@ const serve = async () => {
     app.use(cors());
 
     app.use('/users', userRouter);
-    app.use('/users/:userId/configurations', configurationRouter);
+    app.use('/users/:userId/configurations', verifyToken, configurationRouter);
     app.use('/files', filesRouter);
 
     app.listen(PORT, () => {
