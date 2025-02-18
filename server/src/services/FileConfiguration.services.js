@@ -4,8 +4,13 @@ import { FileConfiguration } from '../models/FileConfiguration.model.js';
 export class FileConfigurationServices {
   static async getAllByConfigurationId(configurationId, page = DEFAULT_PAGE, perPage = DEFAULT_PAGE_SIZE, filename = undefined) {
     const offset = (page - 1) * perPage;
-    const filter = filename ? { where: { configuration_id: configurationId, filename: { [Op.like]: `%${filename}%` } } } : {};
-    const fileConfigurations = await FileConfiguration.findAll({ ...filter, limit: perPage + 1, offset: offset });
+    const filter = filename ? { filename: { [Op.like]: `%${filename}%` } } : {};
+
+    const fileConfigurations = await FileConfiguration.findAll({
+      where: { configuration_id: configurationId, ...filter },
+      limit: perPage + 1,
+      offset: offset,
+    });
     return {
       data: fileConfigurations.slice(0, perPage),
       hasNext: fileConfigurations.length > perPage,
@@ -24,7 +29,7 @@ export class FileConfigurationServices {
     const storedFileConfiguration = await FileConfiguration.findOne({ where: { configuration_id: configurationId, id: fileConfigurationId } });
 
     if (!storedFileConfiguration) {
-      return await FileConfiguration.create({ ...fileConfiguration, id: fileConfigurationId });
+      return await FileConfiguration.create({ ...fileConfiguration, id: fileConfigurationId, configuration_id: configurationId });
     }
 
     Object.keys(fileConfiguration).forEach(key => (storedFileConfiguration[key] = fileConfiguration[key]));

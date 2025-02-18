@@ -3,10 +3,10 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '../configs/constants.js';
 import { Configuration } from '../models/Configuration.model.js';
 
 export class ConfigurationServices {
-  static async getAll(query, page = DEFAULT_PAGE, perPage = DEFAULT_PAGE_SIZE) {
+  static async getAll(userId, query, page = DEFAULT_PAGE, perPage = DEFAULT_PAGE_SIZE) {
     const offset = (page - 1) * perPage;
-    const filter = query ? { where: { title: { [Op.like]: `%${query}%` } } } : {};
-    const configurations = await Configuration.findAll({ ...filter, limit: perPage + 1, offset: offset });
+    const filter = query ? { title: { [Op.like]: `%${query}%` } } : {};
+    const configurations = await Configuration.findAll({ where: { user_id: userId, ...filter }, limit: perPage + 1, offset: offset });
     return { data: configurations.slice(0, perPage) || [], hasNext: configurations.length > perPage };
   }
 
