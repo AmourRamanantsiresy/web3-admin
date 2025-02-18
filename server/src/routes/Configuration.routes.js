@@ -12,7 +12,7 @@ configurationRouter.get('/', ConfigurationController.getAll);
 configurationRouter.get('/:configurationId', ConfigurationController.getOne);
 configurationRouter.put('/:configurationId', validateConfiguration, ConfigurationController.saveOne);
 // files
-configurationRouter.put('/:configurationId/files/:fileId', fileUpload, FilesController.saveOne);
+configurationRouter.put('/:configurationId/files/:fileId', fileUpload, FilesController.setConfigurationImage);
 
 // file configuration
 configurationRouter.get('/:configurationId/fileConfiguration', FileConfigurationController.getAll);

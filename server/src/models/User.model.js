@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../configs/db.js';
+import { Files } from './Files.model.js';
 
 export const User = sequelize.define(
   '__User__',
@@ -21,9 +22,20 @@ export const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    profil_picture_id: {
+      type: DataTypes.UUID,
+      references: {
+        model: Files,
+        key: 'id',
+      },
+      allowNull: true,
+    },
   },
   {
     timestamps: false,
     tableName: '__User__',
   }
 );
+
+Files.hasOne(Configuration, { foreignKey: 'profil_picture_id' });
+User.belongsTo(Files, { foreignKey: 'profil_picture_id' });

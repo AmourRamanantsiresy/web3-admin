@@ -4,7 +4,6 @@ export class ConfigurationController {
   static async getAll(req, res) {
     const { title, page, pageSize } = req.query;
     const userId = req.user?.id;
-
     const data = await ConfigurationServices.getAll(userId, title, page, pageSize);
     res.status(200).json(data);
   }
