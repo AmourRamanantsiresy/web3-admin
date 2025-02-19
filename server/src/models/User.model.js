@@ -37,5 +37,5 @@ export const User = sequelize.define(
   }
 );
 
-Files.hasOne(Configuration, { foreignKey: 'profil_picture_id' });
+Files.hasOne(User, { foreignKey: 'profil_picture_id' });
 User.belongsTo(Files, { foreignKey: 'profil_picture_id' });
