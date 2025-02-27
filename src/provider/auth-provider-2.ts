@@ -1,10 +1,8 @@
 import { AuthProvider, QueryFunctionContext } from 'react-admin';
 
-export const authProvider: AuthProvider = {
+const authProvider: AuthProvider = {
   login: async function (params: any): Promise<{ redirectTo?: string | boolean } | void | any> {
-    const { username, password, age } = params;
-
-    console.log(age);
+    const { username, password } = params;
 
     const loginResult = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
@@ -20,13 +18,16 @@ export const authProvider: AuthProvider = {
 
     localStorage.setItem('accessToken', accessToken);
 
-    return Promise.resolve({ redirectTo: '/' });
+    return {
+      redirectTo: '/',
+    };
   },
   logout: async function (params: any): Promise<void | false | string> {
     localStorage.removeItem('accessToken');
   },
   checkAuth: async function (params: any & QueryFunctionContext): Promise<void> {
     const accessToken = localStorage.getItem('accessToken');
+
     const me = await fetch('https://dummyjson.com/auth/me', {
       method: 'GET',
       headers: {
@@ -35,16 +36,14 @@ export const authProvider: AuthProvider = {
     });
 
     if (me.status === 401) {
-      return Promise.reject(new Error('Tsy connecter tsony'));
+      throw new Error('Tsy connecter tsony');
     }
-
-    return Promise.resolve();
   },
-  checkError: async function (error: any): Promise<void> {
-    const status = error.status;
-    if (status === 401 || status === 403) {
-      localStorage.removeItem('accessToken');
-      throw new Error('erreur');
+  checkError: function (error: any): Promise<void> {
+    const { status } = error;
+
+    if (status === 401 && status === 403) {
+      throw new Error('Token error');
     }
   },
 };

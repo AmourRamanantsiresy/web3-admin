@@ -1,5 +1,7 @@
-import { blue, green, red } from '@mui/material/colors';
-import { Admin, Resource } from 'react-admin';
+import { indigo, pink, red, yellow } from '@mui/material/colors';
+import { createTheme } from '@mui/system';
+import { deepmerge } from '@mui/utils';
+import { Admin, defaultTheme, Resource } from 'react-admin';
 import { dataProvider } from './data-provider';
 import { authProvider } from './provider/auth-provider';
 import { LoginPage } from './screen/LoginPage';
@@ -7,35 +9,28 @@ import { UserEdit } from './screen/UserEdit';
 import { UserList } from './screen/UserList';
 import { UserShow } from './screen/UserShow';
 
-const myTheme = {
+const myTheme = createTheme({
   palette: {
-    primary: green,
-    secondary: blue,
+    primary: indigo,
+    secondary: yellow,
     error: red,
     contrastThreshold: 3,
     tonalOffset: 0.2,
   },
   typography: {
-    // Use the system font instead of the default Roboto font.
     fontFamily: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
   },
+
   components: {
-    MuiToolbar: {
+    MuiButtonBase: {
       styleOverrides: {
         root: {
           background: 'red',
         },
       },
     },
-    MuiList: {
-      styleOverrides: {
-        root: {
-          background: 'black',
-        },
-      },
-    },
   },
-};
+});
 
 const App = () => {
   return (
