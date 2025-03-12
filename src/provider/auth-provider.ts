@@ -4,8 +4,6 @@ export const authProvider: AuthProvider = {
   login: async function (params: any): Promise<{ redirectTo?: string | boolean } | void | any> {
     const { username, password, age } = params;
 
-    console.log(age);
-
     const loginResult = await fetch('https://dummyjson.com/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -19,6 +17,8 @@ export const authProvider: AuthProvider = {
     const { accessToken } = await loginResult.json();
 
     localStorage.setItem('accessToken', accessToken);
+
+    localStorage.setItem('role', 'user');
 
     return Promise.resolve({ redirectTo: '/' });
   },
@@ -46,5 +46,18 @@ export const authProvider: AuthProvider = {
       localStorage.removeItem('accessToken');
       throw new Error('erreur');
     }
+  },
+  async canAccess({ resource, action }) {
+    const role = localStorage.getItem('role');
+    if (resource === 'users' && role === 'user') {
+      return true;
+    }
+
+    if (resource === 'posts' && action === 'show' && role === 'user') {
+      return false;
+    }
+    if (resource === 'posts' && action === 'edit' && role === 'user') return false;
+    if (resource === 'posts' && action === 'list' && role === 'user') return true;
+    return false;
   },
 };
