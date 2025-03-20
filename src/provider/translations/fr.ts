@@ -1,14 +1,16 @@
-import french from 'ra-language-french';
+import frenchTranslation from 'ra-language-french';
 
 export const fr = {
-  ...french,
+  ...frenchTranslation,
   resources: {
     users: {
       name: 'Utilisateur |||| Utilisateurs',
       fields: {
-        name: 'Nom',
         id: 'Identifiant',
+        name: 'Nom',
+        age: 'Age',
       },
     },
+    name: "Anarana"
   },
 };

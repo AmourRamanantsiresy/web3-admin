@@ -13,7 +13,7 @@ import { UserShow } from './screen/UserShow';
 const SignUp = () => {
   const navigate = useNavigate();
   const signUp = async () => {
-    const result = await authProvider.signup('', '');
+    const result = await authProvider.signUp('', '');
     navigate(result);
   };
 

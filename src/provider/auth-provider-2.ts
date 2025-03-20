@@ -1,6 +1,10 @@
 import { AuthProvider, QueryFunctionContext } from 'react-admin';
 
-export const authProvider: AuthProvider & { signup: (username: string, password: string) => Promise<string> } = {
+interface AuthProviderExtended extends AuthProvider {
+  signUp(username: string, password: string): Promise<string>;
+}
+
+export const authProvider: AuthProviderExtended = {
   login: async function (params: any): Promise<{ redirectTo?: string | boolean } | void | any> {
     const { username, password } = params;
 
@@ -46,7 +50,7 @@ export const authProvider: AuthProvider & { signup: (username: string, password:
       throw new Error('Token error');
     }
   },
-  async signup(username, password) {
+  async signUp(username, password) {
     return '/';
   },
 };

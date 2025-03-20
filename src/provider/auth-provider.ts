@@ -26,17 +26,17 @@ export const authProvider: AuthProvider = {
     localStorage.removeItem('accessToken');
   },
   checkAuth: async function (params: any & QueryFunctionContext): Promise<void> {
-    const accessToken = localStorage.getItem('accessToken');
-    const me = await fetch('https://dummyjson.com/auth/me', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    // const accessToken = localStorage.getItem('accessToken');
+    // const me = await fetch('https://dummyjson.com/auth/me', {
+    //   method: 'GET',
+    //   headers: {
+    //     Authorization: `Bearer ${accessToken}`,
+    //   },
+    // });
 
-    if (me.status === 401) {
-      return Promise.reject(new Error('Tsy connecter tsony'));
-    }
+    // if (me.status === 401) {
+    //   return Promise.reject(new Error('Tsy connecter tsony'));
+    // }
 
     return Promise.resolve();
   },
@@ -46,18 +46,5 @@ export const authProvider: AuthProvider = {
       localStorage.removeItem('accessToken');
       throw new Error('erreur');
     }
-  },
-  async canAccess({ resource, action }) {
-    const role = localStorage.getItem('role');
-    if (resource === 'users' && role === 'user') {
-      return true;
-    }
-
-    if (resource === 'posts' && action === 'show' && role === 'user') {
-      return false;
-    }
-    if (resource === 'posts' && action === 'edit' && role === 'user') return false;
-    if (resource === 'posts' && action === 'list' && role === 'user') return true;
-    return false;
   },
 };
