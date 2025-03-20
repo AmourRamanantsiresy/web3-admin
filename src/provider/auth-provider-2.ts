@@ -1,6 +1,6 @@
 import { AuthProvider, QueryFunctionContext } from 'react-admin';
 
-const authProvider: AuthProvider = {
+export const authProvider: AuthProvider & { signup: (username: string, password: string) => Promise<string> } = {
   login: async function (params: any): Promise<{ redirectTo?: string | boolean } | void | any> {
     const { username, password } = params;
 
@@ -45,5 +45,8 @@ const authProvider: AuthProvider = {
     if (status === 401 && status === 403) {
       throw new Error('Token error');
     }
+  },
+  async signup(username, password) {
+    return '/';
   },
 };
