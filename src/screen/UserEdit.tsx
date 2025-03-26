@@ -1,4 +1,4 @@
-import { Button, Edit, NumberInput, SaveButton, ShowButton, SimpleForm, TextInput, Toolbar, TopToolbar } from 'react-admin';
+import { Button, Create, Edit, NumberInput, SaveButton, ShowButton, SimpleForm, TextInput, Toolbar, TopToolbar } from 'react-admin';
 
 const CustomToolbar = () => (
   <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -26,4 +26,16 @@ export const UserEdit = () => (
       <NumberInput source='address.geo.lng' />
     </SimpleForm>
   </Edit>
+);
+
+export const UserCreate = () => (
+  <Create>
+    <SimpleForm toolbar={<CustomToolbar />}>
+      <TextInput disabled label='Id' source='id' />
+      <TextInput source='name' />
+      <TextInput source='username' />
+      <NumberInput source='address.geo.lat' />
+      <NumberInput source='address.geo.lng' />
+    </SimpleForm>
+  </Create>
 );

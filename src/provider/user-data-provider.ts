@@ -5,10 +5,10 @@ const url = 'https://jsonplaceholder.typicode.com/users';
 export const userDataProvider = {
   getList: async function <RecordType extends RaRecord = any>(params: GetListParams & QueryFunctionContext): Promise<GetListResult<RecordType>> {
     const data = await fetch(url, { method: 'GET' });
-    const userList = await data.json();
+    const userList: any[] = (await data.json()) || [];
 
     return {
-      data: userList,
+      data: userList.filter((_v, index) => index !== +(params.filter.index || -1)),
       total: 10,
     };
   },

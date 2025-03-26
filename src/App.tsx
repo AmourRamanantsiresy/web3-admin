@@ -6,8 +6,8 @@ import { dataProvider } from './data-provider';
 import { authProvider } from './provider/auth-provider-2';
 import { i18nProvider } from './provider/i18n-provider';
 import { LoginPage } from './screen/LoginPage';
-import { UserEdit } from './screen/UserEdit';
-import { UserList } from './screen/UserList';
+import { UserCreate, UserEdit } from './screen/UserEdit';
+import { UserList, UserListTab } from './screen/UserList';
 import { UserShow } from './screen/UserShow';
 
 const SignUp = () => {
@@ -45,18 +45,48 @@ const Mangahazo = () => {
 };
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000',
+      dark: '#000',
+      light: '#000',
+    },
+    secondary: {
+      main: '#000',
+      dark: '#000',
+      light: '#000',
+    },
+  },
   typography: {
     allVariants: {
       fontStyle: 'italic',
     },
   },
-  components: {},
+  components: {
+    MuiButton: {
+      defaultProps: {
+        variant: 'outlined',
+      },
+      styleOverrides: {
+        root: {
+          textTransform: 'capitalize',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        elevation1: {
+          boxShadow: '0px 10px 15px -3px rgba(0,0,0,0.1)',
+        },
+      },
+    },
+  },
 });
 
 const App = () => {
   return (
     <Admin theme={theme} loginPage={LoginPage} i18nProvider={i18nProvider} layout={MyLayout} dataProvider={dataProvider}>
-      <Resource name='users' list={UserList} show={UserShow} edit={UserEdit} />
+      <Resource name='users' list={UserListTab} show={UserShow} edit={UserEdit} create={UserCreate} />
       <Resource name='posts' list={UserList} show={UserShow} edit={UserEdit} />
       <CustomRoutes noLayout>
         <Route path='/signup' element={<SignUp />} />
