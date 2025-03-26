@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.2",
     "@mui/material": "^6.4.2",
+    "cypress": "^13.13.0",
     "ra-language-french": "^5.6.3",
     "react": "^18.3.1",
     "react-admin": "^5.5.2",
